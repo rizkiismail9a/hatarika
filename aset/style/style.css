@@ -1,0 +1,245 @@
+/* universal */
+body {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+.btn {
+  background-color: #000;
+  color: white;
+  display: inline-block;
+  width: 84px;
+  padding: 15px 0 0 0;
+  height: 35px;
+  border-radius: 15px;
+}
+/* header start */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+.logo {
+  color: darkgrey;
+}
+.logo h1 span {
+  color: #d65a31;
+}
+.navbar .nav-list {
+  display: flex;
+  list-style: none;
+  /* background-color: aqua; */
+  align-items: center;
+}
+.nav-link {
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  margin-right: 24px;
+}
+.login {
+  background-color: #d65a31;
+  /* line-height: 2; */
+  display: inline-block;
+  padding-top: 10px;
+  border-radius: 20px;
+  width: 70px;
+  height: 30px;
+}
+.nav-link:hover {
+  color: #d65a31;
+}
+.login:hover {
+  background-color: black;
+  color: #d65a31;
+}
+
+.dr-container:hover .dropdown {
+  display: flex;
+}
+.dropdown {
+  display: none;
+  flex-direction: column;
+  list-style: none;
+  background-color: #eee;
+  width: 150px;
+  position: fixed;
+  z-index: 999;
+  padding: 0;
+}
+.dropdown li {
+  line-height: 1.5;
+  padding: 16px;
+}
+.dropdown li:hover {
+  background-color: black;
+  cursor: pointer;
+}
+.dropdown li:hover a {
+  color: #d65a31;
+}
+.dropdown li a {
+  text-decoration: none;
+  color: #000;
+}
+/* header end */
+/* Banner */
+.banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 500px;
+  position: relative;
+}
+.banner img {
+  height: 90%;
+  object-fit: contain;
+}
+.jargon-wrapper {
+  position: absolute;
+  bottom: 10px;
+}
+.jargon-wrapper h2 {
+  color: darkgrey;
+}
+/* banner end */
+
+/* main start */
+main {
+  margin: 0 10px;
+}
+.main-container {
+  background-image: url("https://i.ibb.co/DKXGrBP/bg.png");
+  background-size: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0;
+}
+.shoes-main {
+  width: 25%;
+  height: fit-content;
+  padding: 30px;
+  text-align: center;
+}
+.shoes-main img {
+  width: 90%;
+  object-fit: contain;
+  border-radius: 20px;
+}
+.btn-detail {
+  margin-top: -32px;
+}
+/* main end */
+
+/* about us */
+.aboutUs {
+  display: flex;
+  justify-content: space-around;
+  padding: 60px;
+  margin: 20px 10px;
+  background-color: #d3d3d3;
+}
+.about-text {
+  margin-right: 40px;
+  width: 80%;
+}
+.about-text p {
+  font-size: 1.2rem;
+}
+.about-img {
+  padding: 0;
+  width: 20%;
+  border: 10px double black;
+  border-radius: 5px;
+  height: fit-content;
+  width: fit-content;
+}
+.about-img img {
+  width: 100%;
+}
+/* about us end */
+
+/* testimoni */
+.testimoni {
+  background-color: #212832;
+  width: 70%;
+  height: 300px;
+  margin: 30px auto;
+  border: none;
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.testimoni:hover {
+  width: 80%;
+  height: 400px;
+}
+.testimoni-img {
+  border: 5px solid #d65a31;
+  border-radius: 15px;
+  width: 40%;
+}
+.testimoni-img img {
+  width: 100%;
+}
+.testimoni-text {
+  color: white;
+  margin-left: 30px;
+  text-align: justify;
+  font-size: 1.3rem;
+}
+.testimoni-text p:nth-child(2) {
+  font-size: 1.7rem;
+  line-height: 1.5;
+}
+.testimoni-text span {
+  color: #d65a31;
+}
+/* testimoni end */
+
+/* footer */
+footer {
+  background-color: #3a3d46;
+  height: 300px;
+  display: flex;
+  background-image: url("https://i.ibb.co/DKXGrBP/bg.png");
+  background-repeat: repeat-y;
+  background-size: 80px;
+  justify-content: space-around;
+  padding: 40px 40px 40px 20px;
+  flex-wrap: wrap;
+}
+.copyright {
+  width: 100%;
+  text-align: center;
+}
+.footer-content h3 {
+  color: #d65a31;
+}
+.footer-content a {
+  display: block;
+  color: white;
+  line-height: 2;
+}
+.footer-content a:hover {
+  color: #d65a31;
+}
+.sosmed h3 {
+  color: #d65a31;
+}
+.sosmed img {
+  width: 24px;
+}
+.copyright {
+  margin-top: 50px;
+  color: grey;
+}
+/* footer end */
