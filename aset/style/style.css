@@ -17,6 +17,11 @@ a {
   height: 35px;
   border-radius: 15px;
 }
+.btn-detail:hover {
+  background-color: white;
+  color: #d65a31;
+  cursor: pointer;
+}
 /* header start */
 header {
   display: flex;
