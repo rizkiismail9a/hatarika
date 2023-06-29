@@ -42,7 +42,6 @@ header {
 .navbar .nav-list {
   display: flex;
   list-style: none;
-  /* background-color: aqua; */
   align-items: center;
 }
 .nav-link {
@@ -111,7 +110,6 @@ main h2 {
 }
 .product-img {
   height: 100%;
-  object-fit: contain;
 }
 .product-img img {
   width: 100%;
@@ -142,6 +140,9 @@ main h2 {
   display: flex;
   flex-direction: column;
 }
+select {
+  font-size: 1rem;
+}
 .spek p,
 .size p {
   color: #d65a31;
@@ -159,7 +160,6 @@ p.request {
 }
 .btn-submit {
   background-color: #000;
-  border-radius: 0;
   margin: 20px;
   color: white;
   width: 150px;
@@ -177,7 +177,7 @@ p.request {
 }
 .packaging p {
   color: #d65a31;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
 }
 input[type="radio"] {
   margin-left: 20px;
@@ -257,3 +257,92 @@ footer {
   color: grey;
 }
 /* footer end */
+/* layar tablet */
+@media screen and (max-width: 1000px) {
+  header {
+    flex-direction: column;
+  }
+  .dropdown {
+    width: fit-content;
+  }
+  .product-wrapper {
+    flex-direction: column;
+  }
+  .product-img {
+    width: 70%;
+    margin: 10px auto;
+  }
+  .product-desc {
+    width: 100%;
+  }
+  .btn-submit {
+    display: block;
+    margin: 10px auto;
+  }
+  .relate-products-wrapper {
+    margin-bottom: 30px;
+    height: fit-content;
+  }
+  .relate-products {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .relate-item p {
+    line-height: 0.2;
+  }
+  .btn-detail {
+    margin-bottom: 10px;
+  }
+  footer {
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    text-align: center;
+  }
+  footer h3 {
+    font-size: 2rem;
+  }
+}
+/* layar hp */
+@media screen and (max-width: 500px) {
+  .nav-list {
+    flex-direction: column;
+    line-height: 4;
+  }
+  .login {
+    /* display: block; */
+    line-height: 1;
+  }
+  .product-text,
+  .spek {
+    font-size: 0.9rem;
+  }
+  p.request {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  #request,
+  #size {
+    width: 100% !important;
+    height: 50px;
+  }
+  #request {
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
+  .packaging {
+    display: flex;
+    flex-direction: column;
+  }
+  .packaging label {
+    font-size: 0.9rem;
+  }
+  .relate-products {
+    display: flex;
+    /* grid-template-columns: 1fr; */
+    flex-direction: column;
+  }
+  footer h3 {
+    font-size: 1.1rem;
+  }
+}
