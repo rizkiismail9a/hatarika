@@ -24,13 +24,13 @@ a {
 }
 /* hamburger-button */
 .hamburger {
-  width: 40px;
-  height: 28px;
+  width: 30px;
+  height: 20px;
   /* background-color: antiquewhite; */
   display: none;
 }
 .hamburger-span {
-  height: 5px;
+  height: 4px;
   width: 100%;
 }
 /* header start */
