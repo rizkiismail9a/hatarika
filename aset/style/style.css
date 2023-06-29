@@ -22,6 +22,17 @@ a {
   color: #d65a31;
   cursor: pointer;
 }
+/* hamburger-button */
+.hamburger {
+  width: 40px;
+  height: 28px;
+  /* background-color: antiquewhite; */
+  display: none;
+}
+.hamburger-span {
+  height: 5px;
+  width: 100%;
+}
 /* header start */
 header {
   display: flex;
@@ -252,14 +263,15 @@ footer {
   margin-top: 50px;
   color: grey;
 }
+
 /* footer end */
 /* layar tablet */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
   header {
     flex-direction: column;
   }
   .banner img {
-    height: 50%;
+    height: 80%;
     object-fit: contain;
   }
   .jargon-wrapper {
@@ -302,8 +314,39 @@ footer {
 }
 /* layar ponsel */
 @media screen and (max-width: 500px) {
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hamburger-input {
+    width: 40px;
+    opacity: 0;
+    top: -4px;
+    left: -4px;
+    height: 40px;
+    position: absolute;
+  }
+  .hamburger-span {
+    background-color: #d65a31;
+  }
+  .navbar {
+    position: absolute;
+    background-color: white;
+    width: 100vw;
+    z-index: 999;
+    top: 120px;
+    right: -1000px;
+    transition: all 0.7s;
+  }
+  .toggle {
+    right: 0;
+  }
   .nav-list {
     flex-direction: column;
+    margin-left: -12px;
     line-height: 4;
   }
   .login {
