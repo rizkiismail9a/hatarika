@@ -110,6 +110,7 @@ header {
 /* main */
 main h2 {
   margin-bottom: 20px;
+  padding: 20px 50px;
   font-size: 2rem;
 }
 .product-wrapper {
@@ -201,6 +202,7 @@ input[type="radio"] {
 }
 .relate-products-wrapper h2 {
   margin-bottom: 20px;
+  padding: 20px 50px;
   font-size: 2rem;
 }
 .relate-products {
@@ -316,6 +318,9 @@ footer {
 }
 /* layar hp */
 @media screen and (max-width: 500px) {
+  h2 {
+    text-align: center;
+  }
   header {
     padding-bottom: 15px;
   }
