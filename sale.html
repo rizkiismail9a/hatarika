@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="aset/style/sale.css" />
+    <title>Sale | Hatarika Shoes</title>
+  </head>
+  <body>
+    <div id="app">
+      <nav>
+        <div class="nav__content">
+          <div class="logo">
+            <h1>Your <span>Shoes</span></h1>
+          </div>
+          <div class="hamburger">
+            <input class="hamburger-input" type="checkbox" />
+            <span class="hamburger-span"></span>
+            <span class="hamburger-span"></span>
+            <span class="hamburger-span"></span>
+          </div>
+          <div class="navbar">
+            <ul class="nav-list">
+              <li class="nav-menu"><a class="nav-link" href="#">Home</a></li>
+              <li class="nav-menu dr-container">
+                <a class="nav-link" href="#">Collections</a>
+                <ul class="dropdown">
+                  <li><a href="#">Sneakers</a></li>
+                  <li><a href="#">Slip On</a></li>
+                  <li><a href="#">Boots</a></li>
+                  <li><a href="#">Pentofel</a></li>
+                </ul>
+              </li>
+              <li class="nav-menu dr-container">
+                <a class="nav-link" href="#">Brands</a>
+                <ul class="dropdown">
+                  <li><a href="#">Adidas</a></li>
+                  <li><a href="#">Nike</a></li>
+                  <li><a href="#">Converse</a></li>
+                </ul>
+              </li>
+              <li class="nav-menu"><a class="nav-link" href="#">Sale</a></li>
+              <li class="nav-menu"><a class="nav-link cart" href="#" @click="isCartActive=true">Cart({{carts.length}})</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <main>
+        <div class="main__title">
+          <h1>Product <span style="color: #d65a31">Sale</span></h1>
+        </div>
+        <div class="main__product">
+          <div class="product__card" v-for="product in products" :key="product.id">
+            <img :src="`aset/images/${product.file}`" :alt="product.name" class="product__img" />
+            <button class="btn btn-detail product__btn" @click="seeDetail(product.id)">Details</button>
+            <div class="product_title"><h3>{{product.name}}</h3></div>
+            <div class="product__price-disc"><h3>Rp{{product.initialPrice}},00</h3></div>
+            <div class="product__price"><h2>Rp{{product.currPrice}},00</h2></div>
+          </div>
+        </div>
+      </main>
+      <transition>
+        <div id="modal" v-if="isModalActive===true">
+          <div class="modal-card">
+            <div class="modal__title">
+              <h1>Detail Products</h1>
+              <div class="closeModal"><p style="font-size: 2rem; color: grey" @click="closeModal">&Cross;</p></div>
+            </div>
+            <div v-for="item in productOnModal" :key="item.id" class="modal-product_cart">
+              <img :src="`aset/images/${item.file}`" alt="" class="modal__img" />
+              <div class="modal-product_options">
+                <h1 class="modal-product_name color_orange">{{item.name}}</h1>
+                <div class="product__price-disc"><h3>Rp{{item.initialPrice}},00</h3></div>
+                <div class="product__price"><h2>Rp{{item.currPrice}},00</h2></div>
+                <form>
+                  <div class="choose-size">
+                    <label for="size" class="color_orange">Choose Size</label>
+                    <select name="size" id="size" v-model="choosenSize">
+                      <option value="" disabled selected>Pilih</option>
+                      <option v-for="list in sizeList" :value="list">{{list}}</option>
+                    </select>
+                  </div>
+                  <div class="quantity">
+                    <label for="quantity" class="color_orange">Quantity</label>
+                    <button class="btn-min">&minus;</button>
+                    <input type="text" style="width: 30px; height: 30px" v-model="quantity" />
+                    <button class="btn-plus">&plus;</button>
+                  </div>
+                  <div class="special-size">
+                    <p>If you can't find your size, please kindly input here!</p>
+                    <label for="special-size" class="color_orange">Special Request</label>
+                    <input type="text" id="special-size" style="height: 30px; width: 200px" placeholder="e.g EUR 43" v-model="specialRequest" />
+                  </div>
+                  <div class="packing">
+                    <p class="color_orange" style="margin-bottom: 20px">Packaging</p>
+                    <div class="radio-btn">
+                      <label for="html" v-for="list in packing"><input type="radio" id="html" name="packing" :value="list" :selected="list === choosenPackage" v-model="choosenPackage" /> {{list}} </label>
+                    </div>
+                    <hr />
+                    <div>
+                      <button type="button" class="btn-submit" @click="addToCart(item.id)">Add to Cart</button>
+                      <button type="button" class="btn-submit" @click="buyNow(item.id)">Buy Now</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="modal-product-info">
+              <h3>Description</h3>
+              <p>
+                Make your days more simply with Hatarika's Sneakers Edition. Made with a combination of twill fabric upper and white-colored rubber, each pair gives the impression of shoes that have been lovingly kept. Express your simply
+                style everyday with 5 different choice of colors. Wear the sneakers to support your mood today, tomorrow, and forever.
+              </p>
+            </div>
+            <div class="modal-product_spec">
+              <div class="specList">
+                <h3>Specification</h3>
+                <ul>
+                  <li v-for="list in specList">{{list}}</li>
+                </ul>
+              </div>
+              <div class="sizeList">
+                <h3>Size Charts</h3>
+                <ul>
+                  <li v-for="list in sizeList">{{list}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+      <transition>
+        <div id="modal" v-if="isCartActive">
+          <div class="modal-card cart-modal">
+            <div class="modal__title" v-if="carts.length===0">
+              <h1>Keranjangnya kosong, nih! Buruan belanja 😡</h1>
+              <div class="closeModal"><p style="font-size: 2rem; color: grey; cursor: pointer" @click="isCartActive=false">&Cross;</p></div>
+            </div>
+            <div v-else>
+              <div class="modal__title">
+                <h1>Isi Keranjang</h1>
+                <div class="iscloseModal"><p style="font-size: 2rem; color: grey; cursor: pointer" @click="isCartActive=false">&Cross;</p></div>
+              </div>
+              <div class="cart-content" v-for="(item, index) in carts" :key="item.id">
+                <img :src="`aset/images/${item.file}`" :alt="item.name" class="cart-img" />
+                <div class="product-info">
+                  <h3>{{item.name}}</h3>
+                  <div class="sizeAndAmount" style="display: flex; gap: 20px">
+                    <p>Size: {{item.size}}</p>
+                    <p>Jumlah: {{item.amount}}</p>
+                  </div>
+                  <div class="packagingAndNote" style="display: flex; gap: 20px">
+                    <p>Packaging: {{item.packing}}</p>
+                    <p>Note: {{item.note}}</p>
+                  </div>
+                  <p class="price color_orange">Rp{{item.price * item.amount}},00</p>
+                </div>
+                <button class="btn btn-delete" @click="deleteProduct(index)" style="cursor: pointer">Hapus</button>
+              </div>
+            </div>
+            <div class="buy-button" v-if="carts.length !== 0">
+              <h3>Rp{{totalPrice}}</h3>
+              <button class="btn btn-delete" @click="makeOrder">Buy</button>
+            </div>
+          </div>
+        </div>
+      </transition>
+      <footer>
+        <div class="footer__wrapper">
+          <div class="footer-content">
+            <h3>Hatarika</h3>
+            <a v-for="list in address" href="#">{{list}}</a>
+          </div>
+          <div class="footer-content">
+            <h3>Hatarika Collection</h3>
+            <a v-for="list in collections" class="footer-link" href="#">{{list}}</a>
+          </div>
+          <div class="sosmed">
+            <h3>Follow Us On</h3>
+            <a v-for="(value, key) in socials" href="#" style="margin-right: 12px"><img :src="value" :alt="key" /></a>
+          </div>
+          <div class="copyright">
+            <p>copyright &copy; 2022 Hatarika.co All Rights Reserved</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="aset/script/sale.js"></script>
+  </body>
+</html>
