@@ -50,8 +50,15 @@
         <div class="main__title">
           <h1>Product <span style="color: #d65a31">Sale</span></h1>
         </div>
+        <div class="main__filter">
+          <button class="btn btn-detail btn-filter" @click="filterProducts('all')">All</button>
+          <button class="btn btn-detail btn-filter" @click="filterProducts('Nike')">Nike</button>
+          <button class="btn btn-detail btn-filter" @click="filterProducts('Boots')">Boots</button>
+          <button class="btn btn-detail btn-filter" @click="filterProducts('Puma')">Puma</button>
+          <button class="btn btn-detail btn-filter" @click="filterProducts('Pentofel')">Pentofel</button>
+        </div>
         <div class="main__product">
-          <div class="product__card" v-for="product in products" :key="product.id">
+          <div class="product__card" v-for="product in dataShown" :key="product.id">
             <img :src="`aset/images/${product.file}`" :alt="product.name" class="product__img" />
             <button class="btn btn-detail product__btn" @click="seeDetail(product.id)">Details</button>
             <div class="product_title"><h3>{{product.name}}</h3></div>

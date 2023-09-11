@@ -14,6 +14,7 @@ createApp({
           currPrice: 500000,
           file: "shoes-4.jpg",
           stock: 10,
+          brand: "Puma",
         },
         {
           id: 2,
@@ -22,6 +23,7 @@ createApp({
           currPrice: 3000000,
           file: "rednike.jpg",
           stock: 5,
+          brand: "Nike",
         },
         {
           id: 3,
@@ -38,6 +40,7 @@ createApp({
           currPrice: 2000000,
           file: "boots2.jpg",
           stock: 8,
+          brand: "Boots",
         },
         {
           id: 5,
@@ -46,6 +49,7 @@ createApp({
           currPrice: 1000000,
           file: "pantofel.jpg",
           stock: 1,
+          brand: "Pentofel",
         },
       ],
       specList: ["10 Oz canvas upper material", "Canvas lining material", "Polyester flat laces", "Rubber foxing and outsole", "Costum woven label"],
@@ -60,9 +64,24 @@ createApp({
       address: ["Hatarika", "Jl. Sudirman No. XX", "hatarika@mail.com", "(021) 5353535"],
       collections: ["Sneakers", "Boots", "Slip On", "Pentofel"],
       socials: { twitter: "aset/images/twitter.png", instagram: "aset/images/instagram.png", pinterest: "aset/images/pinterest.png" },
+      dataShown: [],
     };
   },
+  mounted() {
+    this.showProducts("all");
+  },
   methods: {
+    showProducts(data) {
+      if (data === "all") {
+        return (this.dataShown = this.products);
+      } else {
+        const findProduct = this.products.filter((item) => item.brand === data);
+        return (this.dataShown = findProduct);
+      }
+    },
+    filterProducts(string) {
+      return this.showProducts(string);
+    },
     seeDetail(id) {
       this.isModalActive = true;
       // console.log(id);
