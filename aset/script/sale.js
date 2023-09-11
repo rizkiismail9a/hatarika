@@ -5,6 +5,7 @@ createApp({
     return {
       isModalActive: false,
       isCartActive: false,
+      hideBtn: false,
       products: [
         {
           id: 1,
@@ -12,6 +13,7 @@ createApp({
           initialPrice: 900000,
           currPrice: 500000,
           file: "shoes-4.jpg",
+          stock: 10,
         },
         {
           id: 2,
@@ -19,6 +21,7 @@ createApp({
           initialPrice: 5000000,
           currPrice: 3000000,
           file: "rednike.jpg",
+          stock: 5,
         },
         {
           id: 3,
@@ -26,6 +29,7 @@ createApp({
           initialPrice: 1500000,
           currPrice: 750000,
           file: "running-shoes.jpg",
+          stock: 0,
         },
         {
           id: 4,
@@ -33,6 +37,7 @@ createApp({
           initialPrice: 3000000,
           currPrice: 2000000,
           file: "boots2.jpg",
+          stock: 8,
         },
         {
           id: 5,
@@ -40,6 +45,7 @@ createApp({
           initialPrice: 2000000,
           currPrice: 1000000,
           file: "pantofel.jpg",
+          stock: 1,
         },
       ],
       specList: ["10 Oz canvas upper material", "Canvas lining material", "Polyester flat laces", "Rubber foxing and outsole", "Costum woven label"],
@@ -50,7 +56,7 @@ createApp({
       choosenSize: "",
       quantity: 1,
       specialRequest: "",
-      productOnModal: [],
+      productOnDetail: [],
       address: ["Hatarika", "Jl. Sudirman No. XX", "hatarika@mail.com", "(021) 5353535"],
       collections: ["Sneakers", "Boots", "Slip On", "Pentofel"],
       socials: { twitter: "aset/images/twitter.png", instagram: "aset/images/instagram.png", pinterest: "aset/images/pinterest.png" },
@@ -59,16 +65,45 @@ createApp({
   methods: {
     seeDetail(id) {
       this.isModalActive = true;
-      console.log(id);
+      // console.log(id);
       const findProduct = this.products.find((item) => item.id === id);
-      this.productOnModal.push(findProduct);
+      this.productOnDetail.push(findProduct);
     },
     closeModal() {
       this.isModalActive = false;
       (this.specialRequest = ""), (this.choosenSize = ""), (this.quantity = 1);
-      this.productOnModal = [];
+      this.productOnDetail = [];
+      this.hideBtn = false;
     },
-
+    addQuantity(id) {
+      const findProduct = this.products.find((item) => item.id === id);
+      this.compareAmount(id);
+      if (this.quantity === findProduct.stock) {
+        return findProduct.stock;
+      } else {
+        this.quantity++;
+      }
+    },
+    subtractQuantity(id) {
+      const findProduct = this.products.find((item) => item.id === id);
+      this.compareAmount(id);
+      if (this.quantity <= 1) {
+        return this.quantity;
+      } else {
+        this.quantity--;
+      }
+    },
+    compareAmount(id) {
+      if (!this.quantity) {
+        return (this.quantity = 1);
+      }
+      console.log(this.quantity);
+      const findProduct = this.products.find((item) => item.id === id);
+      if (this.quantity > findProduct.stock || this.quantity <= 0) {
+        return (this.hideBtn = true);
+      }
+      return (this.hideBtn = false);
+    },
     buyNow(id) {
       console.log(id);
       if (!this.choosenSize) {
@@ -84,7 +119,7 @@ createApp({
       window.location.href = `https://wa.me/6282317421414?text=Halo!%20Saya%20ingin%20memesan%0aProduk:%20${name}%0aUkuran:%20${size}%0aJumlah:%20${amount}%0aSpecial%20Request:%20${request}%0aPacking:%20${packing}%0a%0aTerima%20Kasih!`;
     },
     addToCart(id) {
-      console.log(id);
+      // console.log(id);
       if (!this.choosenSize) {
         return alert("Pilih ukuran terlebih dahulu");
       }
@@ -100,12 +135,14 @@ createApp({
       for (let i = 0; i < this.carts.length; i++) {
         if (this.carts[i].name === name && this.carts[i].size === size && this.carts[i].note === note && this.carts[i].packing === packing) {
           this.carts[i].amount += amount;
+          findProduct.stock = findProduct.stock - amount;
           this.closeModal();
           return alert("Produk berhasil meluncur ke keranjang!");
         }
       }
       const newItem = { name, size, note, packing, amount, file, price: price * amount };
       this.carts.push(newItem);
+      findProduct.stock = findProduct.stock - amount;
       this.closeModal();
       this.isModalActive = false;
       return alert("Produk berhasil meluncur ke keranjang!");

@@ -60,6 +60,7 @@
           </div>
         </div>
       </main>
+      <!-- Detail Modal -->
       <transition>
         <div id="modal" v-if="isModalActive===true">
           <div class="modal-card">
@@ -67,40 +68,46 @@
               <h1>Detail Products</h1>
               <div class="closeModal"><p style="font-size: 2rem; color: grey" @click="closeModal">&Cross;</p></div>
             </div>
-            <div v-for="item in productOnModal" :key="item.id" class="modal-product_cart">
+            <div v-for="item in productOnDetail" :key="item.id" class="modal-product_cart">
               <img :src="`aset/images/${item.file}`" alt="" class="modal__img" />
               <div class="modal-product_options">
                 <h1 class="modal-product_name color_orange">{{item.name}}</h1>
                 <div class="product__price-disc"><h3>Rp{{item.initialPrice}},00</h3></div>
                 <div class="product__price"><h2>Rp{{item.currPrice}},00</h2></div>
                 <form>
-                  <div class="choose-size">
+                  <div class="choose-size" v-if="item.stock > 0">
                     <label for="size" class="color_orange">Choose Size</label>
                     <select name="size" id="size" v-model="choosenSize">
                       <option value="" disabled selected>Pilih</option>
                       <option v-for="list in sizeList" :value="list">{{list}}</option>
                     </select>
                   </div>
-                  <div class="quantity">
-                    <label for="quantity" class="color_orange">Quantity</label>
-                    <button class="btn-min">&minus;</button>
-                    <input type="text" style="width: 30px; height: 30px" v-model="quantity" />
-                    <button class="btn-plus">&plus;</button>
+                  <div class="stock">
+                    <span class="color_orange" style="margin-right: 12px"><b>Stock:</b></span>
+                    <span :class="{'text-green': item.stock > 5, 'text-danger': item.stock < 3, 'text-yellow': item.stock > 3 && item.stock <= 5}"><b>{{item.stock}}</b></span>
+                    <p class="text-yellow" v-if="item.stock > 0 && item.stock < 5">Produk hampir habis! Buruan beli! 😱</p>
+                    <p class="text-danger" v-if="item.stock === 0">Yah... sudah habis 🥲</p>
                   </div>
-                  <div class="special-size">
+                  <div class="quantity" v-if="item.stock > 0">
+                    <label for="quantity" class="color_orange">Quantity</label>
+                    <button class="btn-min" @click="subtractQuantity(item.id)">&minus;</button>
+                    <input type="number" style="width: 200px; height: 30px" v-model="quantity" @change="compareAmount(item.id)" @keyup="compareAmount(item.id)" />
+                    <button class="btn-plus" @click="addQuantity(item.id)">&plus;</button>
+                  </div>
+                  <div class="special-size" v-if="item.stock > 0">
                     <p>If you can't find your size, please kindly input here!</p>
                     <label for="special-size" class="color_orange">Special Request</label>
                     <input type="text" id="special-size" style="height: 30px; width: 200px" placeholder="e.g EUR 43" v-model="specialRequest" />
                   </div>
-                  <div class="packing">
+                  <div class="packing" v-if="item.stock > 0">
                     <p class="color_orange" style="margin-bottom: 20px">Packaging</p>
                     <div class="radio-btn">
                       <label for="html" v-for="list in packing"><input type="radio" id="html" name="packing" :value="list" :selected="list === choosenPackage" v-model="choosenPackage" /> {{list}} </label>
                     </div>
                     <hr />
-                    <div>
-                      <button type="button" class="btn-submit" @click="addToCart(item.id)">Add to Cart</button>
-                      <button type="button" class="btn-submit" @click="buyNow(item.id)">Buy Now</button>
+                    <div v-if="item.stock > 0">
+                      <button v-if="!hideBtn" type="button" class="btn-submit" @click="addToCart(item.id)">Add to Cart</button>
+                      <button type="button" class="btn-submit" @click="buyNow(item.id)" v-if="!hideBtn">Buy Now</button>
                     </div>
                   </div>
                 </form>
@@ -130,6 +137,7 @@
           </div>
         </div>
       </transition>
+      <!-- Cart Modal -->
       <transition>
         <div id="modal" v-if="isCartActive">
           <div class="modal-card cart-modal">

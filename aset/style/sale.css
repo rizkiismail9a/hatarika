@@ -4,6 +4,15 @@
   padding: 0;
   box-sizing: border-box;
 }
+.text-danger {
+  color: red;
+}
+.text-yellow {
+  color: rgb(139, 139, 32);
+}
+.text-green {
+  color: green;
+}
 a {
   text-decoration: none;
 }
