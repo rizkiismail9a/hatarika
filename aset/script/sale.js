@@ -98,7 +98,7 @@ createApp({
       const findProduct = this.products.find((item) => item.id === id);
       this.compareAmount(id);
       if (this.quantity === findProduct.stock) {
-        return findProduct.stock;
+        findProduct.stock;
       } else {
         this.quantity++;
       }
@@ -107,7 +107,7 @@ createApp({
       const findProduct = this.products.find((item) => item.id === id);
       this.compareAmount(id);
       if (this.quantity <= 1) {
-        return this.quantity;
+        this.quantity;
       } else {
         this.quantity--;
       }

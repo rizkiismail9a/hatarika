@@ -97,9 +97,9 @@
                   </div>
                   <div class="quantity" v-if="item.stock > 0">
                     <label for="quantity" class="color_orange">Quantity</label>
-                    <button class="btn-min" @click="subtractQuantity(item.id)">&minus;</button>
-                    <input type="number" style="width: 200px; height: 30px" v-model="quantity" @change="compareAmount(item.id)" @keyup="compareAmount(item.id)" />
-                    <button class="btn-plus" @click="addQuantity(item.id)">&plus;</button>
+                    <button class="btn-min" @click.prevent="subtractQuantity(item.id)">&minus;</button>
+                    <input type="number" style="width: 100px; height: 30px" v-model="quantity" @change="compareAmount(item.id)" @keyup="compareAmount(item.id)" />
+                    <button class="btn-plus" @click.prevent="addQuantity(item.id)">&plus;</button>
                   </div>
                   <div class="special-size" v-if="item.stock > 0">
                     <p>If you can't find your size, please kindly input here!</p>
